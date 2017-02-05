@@ -109,6 +109,6 @@ Behavior to provide data for components. You can use this Behavior for polymer e
 ```
 > dumb-component only fires events which are managed by the smart-component
 
-## Install the Polymer-CLI
+## Try the provider-behavior demo
 
 First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve -o ` to serve your application locally.
