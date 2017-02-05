@@ -62,7 +62,6 @@ Behavior to provide data for components. You can use this Behavior for polymer e
       addAndReflect: function (e) {
         this.$.provider.add(e.detail, true);
       }
-
     });
   </script>
 </dom-module>
@@ -104,7 +103,6 @@ Behavior to provide data for components. You can use this Behavior for polymer e
           value: 'New item collection'
         });
       }
-
     });
   </script>
 </dom-module>
