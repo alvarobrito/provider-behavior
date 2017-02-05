@@ -1,0 +1,36 @@
+{
+  "name": "provider-behavior",
+  "version": "0.1.0",
+  "description": "Provider behavior to provide data for components in Polymer, based on the flux architecture.",
+  "main": "provider-behavior.html",
+  "keywords": [
+    "web-components",
+    "provider",
+    "state",
+    "redux",
+    "store",
+    "polymer"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alvarobrito/provider-behavior.git"
+  },
+  "homepage": "https://github.com/alvarobrito/",
+  "bugs": {
+    "url": "https://github.com/alvarobrito/provider-behavior.git/issues"
+  },
+  "author": "@alvarobrito <alvarobr85@gmail.com>",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.7.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
+    "iron-ajax": "^1.4.3",
+    "web-component-tester": "^4.0.0"
+  },
+  "ignore": [
+    ".editorconfig"
+  ]
+}

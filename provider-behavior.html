@@ -1,0 +1,129 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<script>
+  (function() {
+
+    var _providers = _providers || {};
+    var _store = _store || {};
+
+    var _factory = {
+      add: function (key) {
+        _providers[key] = _providers[key] || [];
+        _providers[key].push(this);
+        _store[key] = _store[key] || null;
+      },
+      remove: function (key) {
+        _providers[key].forEach(function(instance, index) {
+          instance === this && _providers[key].splice(index, 1)
+       }.bind(this));
+      },
+      empty: function () {
+        _providers[key] = {};
+        _store[key] = null;
+      }
+    };
+
+    /**
+    * `Polymer.ProviderBehavior` is a behavior to provide data for components.
+    *
+    * @demo demo/index.html
+    * @polymerBehavior Polymer.ProviderBehavior
+    */
+
+    ProviderBehaviorImpl = (function () {
+      return {
+        properties: {
+
+          /**
+           * Data property which will be stored in the store closure.
+           * @type {Array}
+           */
+          data: {
+            type: Array,
+            readOnly: true,
+            notify: true,
+            observer: '_onDataChanged'
+          },
+
+          /**
+           * Optional property to get automatically data from store or from request ajax. Also set data property to provider element.
+           * @type {Object}
+           */
+          auto: {
+            type: Boolean,
+            value: false
+          }
+        },
+
+        /**
+         * Adds the provider to _providers ArrayObject and its data to store ArrayObject.
+         * Gets data and auto-sets it to provider's data property ' auto-fill'.
+         */
+        attached: function () {
+          _factory.add.call(this, this.tagName);
+
+          if (this.auto) {
+            this.get().then(function (data) {
+                this.set(data);
+            }.bind(this));
+          }
+        },
+
+        /**
+         * Removes the provider which has the same instance. It's possible to have equals providers at the same time.
+         */
+        detached: function () {
+          _factory.remove.call(this, this.tagName);
+        },
+
+        /**
+         * When data property has changed, sets the result in the store with its tagName.
+         * @protected
+         */
+        _onDataChanged: function () {
+          _store[this.tagName] = this.data;
+        },
+
+        //TODO: We rely on the ajax's identifier: <iron-ajax id="api"></iron-ajax>. 'We have to work in a clean solution'.
+        /**
+         * Checks if data exist in the store and gets it, else gets data from its ajax element.
+         * @return {array} data from the store or response data from the ajax request.
+         */
+        get: function () {
+          if (!_store[this.tagName]) {
+            return this.$.api.generateRequest().completes.then(function (req) {
+              return req.response;
+            }.bind(this));
+          }
+          return _store[this.tagName];
+        },
+
+        /**
+         * Sets data property in provider
+         * @param {array} data new data received from outside.
+         * @param {boolean=} reflect optional param which sets changed data to the rest same providers.
+         */
+        set: function (data, reflect) {
+          if (reflect) {
+            _providers[this.tagName].forEach(function (elem) {
+              elem._setData(data);
+            });
+          } else {
+            this._setData(data);
+          }
+        },
+
+        /**
+         * Clear/invalid the sharing store which is used by the providers with their tagName. e.g. 'PROVIDER-ELEMENT'.
+         */
+        clearStore: function () {
+          _store[this.tagName] = null;
+        }
+      };
+    })();
+
+    /** @polymerBehavior */
+    Polymer.ProviderBehavior = ProviderBehaviorImpl;
+
+  })();
+  </script>
