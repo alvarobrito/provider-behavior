@@ -69,6 +69,48 @@ Behavior to provide data for components. You can use this Behavior for polymer e
 ```
 > provider-element contains an add method to add new data in the store and reflects this change to all providers which are using this data.
 
+```html
+<dom-module id="dumb-component">
+  <template>
+    <ol>
+      <template is="dom-repeat" items="[[collection]]">
+        <li>[[item.value]]</li>
+      </template>
+    </ol>
+    <button type="button" name="button" on-click="add">Add</button>
+    <button type="button" name="button" on-click="addAndReflect">Add and reflect</button>
+  </template>
+
+  <script>
+    Polymer({
+      is: "dumb-component",
+
+      properties: {
+        collection: {
+          type: Array
+        }
+      },
+
+      add: function() {
+        this.fire('add', {
+          id: Math.random(),
+          value: 'New item collection'
+        });
+      },
+
+      addAndReflect: function() {
+        this.fire('add-reflect', {
+          id: Math.random(),
+          value: 'New item collection'
+        });
+      }
+
+    });
+  </script>
+</dom-module>
+```
+> dumb-component only fires events which are managed by the smart-component
+
 ## Install the Polymer-CLI
 
 First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve -o ` to serve your application locally.
