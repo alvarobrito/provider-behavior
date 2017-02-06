@@ -5,9 +5,9 @@ Behavior to provide data for components. You can use this Behavior for polymer e
 ## Behavior API
 
 | method            | Params              | Description  |
-| ------------------|:-------------------:| ------------:|
-| get()             |                     | Gets data from iron-ajax. You   can add `auto` property in provider-element to get data and render it automatically                                         |
-| set(data, reflect)| ArrayObject, Boolean|   Updates store with the new data, reflect true to apply updating for all same providers.   |
+| ------------------|:-------------------:| -------------|
+| get()             |                     | Gets data from iron-ajax. You can add `auto` property in provider-element to get data and render it automatically                                         |
+| set(data,reflect)| ArrayObject, Boolean|   Updates store with the new data, reflect true to apply updating for all same providers.   |
 | clearStore()      |                     |    Clears store, using it tagName (eg. `'PROVIDER-ELEMENT'`) |
 
 ## How to use
